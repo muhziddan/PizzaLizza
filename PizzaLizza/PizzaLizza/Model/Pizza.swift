@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct Pizza: Decodable {
+struct Pizza: Decodable, Hashable {
     let countryName: String
     let price: String
     let countryEmoji: String
+    
+    var intPrice: Int {
+        return Int(price) ?? 0
+    }
+    var picked: Int?
 }

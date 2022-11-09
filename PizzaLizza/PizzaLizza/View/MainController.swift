@@ -18,7 +18,8 @@ class MainController: UIViewController {
     
     var pizzaService = PizzaService()
     var pizzaData: [Pizza]?
-    var pickerCount = 0
+    var shoppingCart = ShoppingCart.sharedCart
+//    var pickerCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,7 @@ class MainController: UIViewController {
         view.addSubview(tableView)
         
         navigationItem.title = "Pizza Lizza"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "0 🍕", style: .plain, target: self, action: #selector(segueHandler))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "\(shoppingCart.pizzas.count) 🍕", style: .plain, target: self, action: #selector(segueHandler))
         
         pizzaData = pizzaService.fetchPizzaData()
         tableView.reloadData()
@@ -44,7 +45,7 @@ class MainController: UIViewController {
 
 private extension MainController {
     func updateCartButton() {
-        navigationItem.rightBarButtonItem?.title = "\(pickerCount) 🍕"
+        navigationItem.rightBarButtonItem?.title = "\(shoppingCart.pizzas.count) 🍕"
     }
     
     @objc private func segueHandler() {
@@ -71,7 +72,8 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        pickerCount += 1
+        guard let selectedPizza = pizzaData?[indexPath.row] else {return}
+        shoppingCart.pizzas.append(selectedPizza)
         updateCartButton()
     }
 }
