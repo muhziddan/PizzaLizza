@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var appCoordinator: AppCoordinator?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -18,23 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        window?.windowScene = windowScene
-        window?.makeKeyAndVisible()
+        let window = UIWindow(windowScene: windowScene)
         
-        let rootVC = MainController()
-        let navVC = UINavigationController(rootViewController: rootVC)
-        let navBarAppearances = UINavigationBarAppearance()
-        navBarAppearances.configureWithOpaqueBackground()
-        navBarAppearances.backgroundColor = UIColor(named: "MainRed")
-        navBarAppearances.titleTextAttributes = [
-            .font: UIFont.boldSystemFont(ofSize: 26),
-            .foregroundColor: UIColor.white
-        ]
-        navVC.navigationBar.tintColor = .white
-        navVC.navigationBar.standardAppearance = navBarAppearances
-        navVC.navigationBar.scrollEdgeAppearance = navBarAppearances
-        
-        window?.rootViewController = navVC
+        appCoordinator = AppCoordinator(window: window)
+        appCoordinator?.start()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
