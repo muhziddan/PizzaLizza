@@ -21,8 +21,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
-        let rootVC = ViewController()
+        let rootVC = MainController()
         let navVC = UINavigationController(rootViewController: rootVC)
+        let navBarAppearances = UINavigationBarAppearance()
+        navBarAppearances.configureWithOpaqueBackground()
+        navBarAppearances.backgroundColor = UIColor(named: "MainRed")
+        navBarAppearances.titleTextAttributes = [
+            .font: UIFont.boldSystemFont(ofSize: 26),
+            .foregroundColor: UIColor.white
+        ]
+        navVC.navigationBar.tintColor = .white
+        navVC.navigationBar.standardAppearance = navBarAppearances
+        navVC.navigationBar.scrollEdgeAppearance = navBarAppearances
+        
         window?.rootViewController = navVC
     }
 
