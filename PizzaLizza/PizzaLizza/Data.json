@@ -1,0 +1,27 @@
+[
+    {
+        "countryName": "Indonesia",
+        "price": "50000",
+        "countryEmoji": "🇮🇩"
+    },
+    {
+        "countryName": "Italy",
+        "price": "100000",
+        "countryEmoji": "🇮🇹"
+    },
+    {
+        "countryName": "USA",
+        "price": "80000",
+        "countryEmoji": "🇺🇸"
+    },
+    {
+        "countryName": "UK",
+        "price": "85000",
+        "countryEmoji": "🇬🇧"
+    },
+    {
+        "countryName": "Sweden",
+        "price": "60000",
+        "countryEmoji": "🇸🇪"
+    }
+]

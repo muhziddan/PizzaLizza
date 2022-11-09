@@ -14,6 +14,9 @@
 		8F20F00F291B92AD0049B0A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F20F00E291B92AD0049B0A4 /* Assets.xcassets */; };
 		8F20F012291B92AD0049B0A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F20F010291B92AD0049B0A4 /* LaunchScreen.storyboard */; };
 		8F20F01A291BB1460049B0A4 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20F019291BB1460049B0A4 /* AppCoordinator.swift */; };
+		8F20F01D291BC9AA0049B0A4 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F20F01C291BC9AA0049B0A4 /* Data.json */; };
+		8F20F01F291BCB240049B0A4 /* Pizza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20F01E291BCB230049B0A4 /* Pizza.swift */; };
+		8F20F021291BCBDD0049B0A4 /* PizzaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20F020291BCBDD0049B0A4 /* PizzaService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		8F20F011291B92AD0049B0A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F20F013291B92AD0049B0A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F20F019291BB1460049B0A4 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		8F20F01C291BC9AA0049B0A4 /* Data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
+		8F20F01E291BCB230049B0A4 /* Pizza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pizza.swift; sourceTree = "<group>"; };
+		8F20F020291BCBDD0049B0A4 /* PizzaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,7 @@
 		8F20F004291B92AC0049B0A4 /* PizzaLizza */ = {
 			isa = PBXGroup;
 			children = (
+				8F20F01B291BC97E0049B0A4 /* Model */,
 				8F20F005291B92AC0049B0A4 /* AppDelegate.swift */,
 				8F20F007291B92AC0049B0A4 /* SceneDelegate.swift */,
 				8F20F009291B92AC0049B0A4 /* MainController.swift */,
@@ -66,8 +73,18 @@
 				8F20F010291B92AD0049B0A4 /* LaunchScreen.storyboard */,
 				8F20F013291B92AD0049B0A4 /* Info.plist */,
 				8F20F019291BB1460049B0A4 /* AppCoordinator.swift */,
+				8F20F01C291BC9AA0049B0A4 /* Data.json */,
 			);
 			path = PizzaLizza;
+			sourceTree = "<group>";
+		};
+		8F20F01B291BC97E0049B0A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8F20F01E291BCB230049B0A4 /* Pizza.swift */,
+				8F20F020291BCBDD0049B0A4 /* PizzaService.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,6 +148,7 @@
 				8F20F012291B92AD0049B0A4 /* LaunchScreen.storyboard in Resources */,
 				8F20F00F291B92AD0049B0A4 /* Assets.xcassets in Resources */,
 				8F20F00D291B92AC0049B0A4 /* Main.storyboard in Resources */,
+				8F20F01D291BC9AA0049B0A4 /* Data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +162,8 @@
 				8F20F01A291BB1460049B0A4 /* AppCoordinator.swift in Sources */,
 				8F20F00A291B92AC0049B0A4 /* MainController.swift in Sources */,
 				8F20F006291B92AC0049B0A4 /* AppDelegate.swift in Sources */,
+				8F20F01F291BCB240049B0A4 /* Pizza.swift in Sources */,
+				8F20F021291BCBDD0049B0A4 /* PizzaService.swift in Sources */,
 				8F20F008291B92AC0049B0A4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

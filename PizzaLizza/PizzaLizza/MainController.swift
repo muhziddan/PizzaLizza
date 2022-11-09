@@ -16,6 +16,9 @@ class MainController: UIViewController {
         return tv
     }()
     
+    var pizzaService = PizzaService()
+    var pizzaData: [Pizza]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -26,6 +29,9 @@ class MainController: UIViewController {
         
         navigationItem.title = "Pizza Lizza"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "0 🍕")
+        
+        pizzaData = pizzaService.fetchPizzaData()
+        tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -37,14 +43,14 @@ class MainController: UIViewController {
 
 extension MainController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return pizzaData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
         var content = cell.defaultContentConfiguration()
-        content.text = "Test"
+        content.text = pizzaData?[indexPath.row].countryName
         cell.contentConfiguration = content
         
         return cell
