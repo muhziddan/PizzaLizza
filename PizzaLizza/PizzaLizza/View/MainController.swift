@@ -11,15 +11,9 @@ class MainController: UIViewController {
     
     private let tableView: UITableView = {
         let tv = UITableView()
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tv.register(UITableViewCell.self, forCellReuseIdentifier: "MainCell")
         
         return tv
-    }()
-    private let barButton: UIBarButtonItem = {
-        let bb = UIBarButtonItem()
-        bb.title = "0 🍕"
-        
-        return bb
     }()
     
     var pizzaService = PizzaService()
@@ -35,7 +29,7 @@ class MainController: UIViewController {
         view.addSubview(tableView)
         
         navigationItem.title = "Pizza Lizza"
-        navigationItem.rightBarButtonItem = barButton
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "0 🍕", style: .plain, target: self, action: #selector(segueHandler))
         
         pizzaData = pizzaService.fetchPizzaData()
         tableView.reloadData()
@@ -50,7 +44,12 @@ class MainController: UIViewController {
 
 private extension MainController {
     func updateCartButton() {
-        barButton.title = "\(pickerCount) 🍕"
+        navigationItem.rightBarButtonItem?.title = "\(pickerCount) 🍕"
+    }
+    
+    @objc private func segueHandler() {
+        let destinationVC = CartController()
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
 
@@ -60,7 +59,7 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MainCell", for: indexPath)
         
         var content = cell.defaultContentConfiguration()
         content.text = pizzaData?[indexPath.row].countryName

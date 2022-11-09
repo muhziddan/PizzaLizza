@@ -17,6 +17,7 @@
 		8F20F01D291BC9AA0049B0A4 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F20F01C291BC9AA0049B0A4 /* Data.json */; };
 		8F20F01F291BCB240049B0A4 /* Pizza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20F01E291BCB230049B0A4 /* Pizza.swift */; };
 		8F20F021291BCBDD0049B0A4 /* PizzaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20F020291BCBDD0049B0A4 /* PizzaService.swift */; };
+		8F9BA8E0291BDEBC00A931C8 /* CartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9BA8DF291BDEBC00A931C8 /* CartController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		8F20F01C291BC9AA0049B0A4 /* Data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
 		8F20F01E291BCB230049B0A4 /* Pizza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pizza.swift; sourceTree = "<group>"; };
 		8F20F020291BCBDD0049B0A4 /* PizzaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaService.swift; sourceTree = "<group>"; };
+		8F9BA8DF291BDEBC00A931C8 /* CartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +69,7 @@
 				8F20F01B291BC97E0049B0A4 /* Model */,
 				8F20F005291B92AC0049B0A4 /* AppDelegate.swift */,
 				8F20F007291B92AC0049B0A4 /* SceneDelegate.swift */,
-				8F20F009291B92AC0049B0A4 /* MainController.swift */,
+				8F9BA8E1291BDEDB00A931C8 /* View */,
 				8F20F00B291B92AC0049B0A4 /* Main.storyboard */,
 				8F20F00E291B92AD0049B0A4 /* Assets.xcassets */,
 				8F20F010291B92AD0049B0A4 /* LaunchScreen.storyboard */,
@@ -85,6 +87,15 @@
 				8F20F020291BCBDD0049B0A4 /* PizzaService.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		8F9BA8E1291BDEDB00A931C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8F20F009291B92AC0049B0A4 /* MainController.swift */,
+				8F9BA8DF291BDEBC00A931C8 /* CartController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +172,7 @@
 			files = (
 				8F20F01A291BB1460049B0A4 /* AppCoordinator.swift in Sources */,
 				8F20F00A291B92AC0049B0A4 /* MainController.swift in Sources */,
+				8F9BA8E0291BDEBC00A931C8 /* CartController.swift in Sources */,
 				8F20F006291B92AC0049B0A4 /* AppDelegate.swift in Sources */,
 				8F20F01F291BCB240049B0A4 /* Pizza.swift in Sources */,
 				8F20F021291BCBDD0049B0A4 /* PizzaService.swift in Sources */,
