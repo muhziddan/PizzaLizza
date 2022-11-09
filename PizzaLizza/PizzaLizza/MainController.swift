@@ -15,9 +15,16 @@ class MainController: UIViewController {
         
         return tv
     }()
+    private let barButton: UIBarButtonItem = {
+        let bb = UIBarButtonItem()
+        bb.title = "0 🍕"
+        
+        return bb
+    }()
     
     var pizzaService = PizzaService()
     var pizzaData: [Pizza]?
+    var pickerCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +35,7 @@ class MainController: UIViewController {
         view.addSubview(tableView)
         
         navigationItem.title = "Pizza Lizza"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "0 🍕")
+        navigationItem.rightBarButtonItem = barButton
         
         pizzaData = pizzaService.fetchPizzaData()
         tableView.reloadData()
@@ -38,6 +45,12 @@ class MainController: UIViewController {
         super.viewDidLayoutSubviews()
         
         tableView.frame = view.bounds
+    }
+}
+
+private extension MainController {
+    func updateCartButton() {
+        barButton.title = "\(pickerCount) 🍕"
     }
 }
 
@@ -56,6 +69,11 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        pickerCount += 1
+        updateCartButton()
+    }
 }
 
