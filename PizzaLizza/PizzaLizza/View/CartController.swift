@@ -16,7 +16,7 @@ class CartController: UIViewController {
         return tv
     }()
     
-    let shoppingCart = ShoppingCart.sharedCart
+    let totalItems = ShoppingCart.sharedCart.totalItems
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,14 +52,14 @@ class CartController: UIViewController {
 
 extension CartController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return shoppingCart.totalItems.count
+        return totalItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SecondCell", for: indexPath)
         
         var content = cell.defaultContentConfiguration()
-        content.text = "\(shoppingCart.totalItems[indexPath.row].countryName) - \(shoppingCart.totalItems[indexPath.row].picked!)"
+        content.text = "\(totalItems[indexPath.row].countryName) - \(totalItems[indexPath.row].picked!)"
         cell.contentConfiguration = content
         
         return cell

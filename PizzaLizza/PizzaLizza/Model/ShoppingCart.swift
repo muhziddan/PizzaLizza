@@ -11,7 +11,6 @@ class ShoppingCart {
     static let sharedCart = ShoppingCart()
     
     var pizzas: [Pizza] = []
-    var dictd = ["abc" : 0]
 }
 
 extension ShoppingCart {
