@@ -45,11 +45,20 @@ class CartController: UIViewController {
         
         view.backgroundColor = .white
         navigationItem.title = "Cart"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "reset", style: .plain, target: self, action: #selector(resetCart))
         
         setupTableView()
         setupTotalView()
         
         tableView.reloadData()
+    }
+}
+
+//MARK: - Reset Cart
+private extension CartController {
+    @objc private func resetCart() {
+        ShoppingCart.sharedCart.pizzas = []
+        navigationController?.popViewController(animated: true)
     }
 }
 
