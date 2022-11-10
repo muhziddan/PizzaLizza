@@ -21,6 +21,10 @@ class CartController: UIViewController {
     private let totalView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "MainRed")
+        view.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        view.layer.shadowOffset = CGSize(width: 0.0, height: -2.0)
+        view.layer.shadowOpacity = 1.0
+        view.layer.shadowRadius = 5.0
         
         return view
     }()
@@ -38,6 +42,23 @@ class CartController: UIViewController {
         label.textAlignment = .right
         
         return label
+    }()
+    private let payButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(named: "MainOrange")
+        button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        button.layer.shadowOpacity = 1.0
+        button.layer.shadowRadius = 0.0
+        button.layer.masksToBounds = false
+        button.layer.cornerRadius = 20
+        let attributes: [NSAttributedString.Key : Any] = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont.boldSystemFont(ofSize: 25)
+        ]
+        button.setAttributedTitle(NSAttributedString(string: "Pay", attributes: attributes), for: .normal)
+        
+        return button
     }()
     
     private var totalItems: Observable<[ShoppingCartModel]> = Observable.just([])
@@ -58,6 +79,7 @@ class CartController: UIViewController {
         // setup view
         setupTableView()
         setupTotalView()
+        setupPayButton()
         
         // setup rx
         setupCellConfiguration()
@@ -93,7 +115,7 @@ private extension CartController {
     }
 }
 
-//MARK: - Reset Cart
+//MARK: - Reset Cart method
 private extension CartController {
     @objc private func resetCart() {
         ShoppingCart.sharedCart.pizzas.accept([])
@@ -101,11 +123,19 @@ private extension CartController {
     }
 }
 
+//MARK: - Pay button pressed
+private extension CartController {
+    @objc private func payButtonPressed() {
+        let destinationVC = PayController()
+        navigationController?.pushViewController(destinationVC, animated: true)
+    }
+}
+
 //MARK: - setup views
 private extension CartController {
     func setupTableView() {
         
-        tableView.frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: (view.bounds.height - CGFloat(110)))
+        tableView.frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: (view.bounds.height - CGFloat(140)))
         view.addSubview(tableView)
         
         tableView.translatesAutoresizingMaskIntoConstraints = true
@@ -114,7 +144,7 @@ private extension CartController {
     
     func setupTotalView() {
         // base view
-        totalView.frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY, width: view.bounds.width, height: -110)
+        totalView.frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY, width: view.bounds.width, height: -140)
         
         view.addSubview(totalView)
         
@@ -135,5 +165,12 @@ private extension CartController {
         totalPriceLabel.translatesAutoresizingMaskIntoConstraints = true
         totalLabel.autoresizingMask = [UILabel.AutoresizingMask.flexibleLeftMargin, UILabel.AutoresizingMask.flexibleRightMargin, UILabel.AutoresizingMask.flexibleTopMargin, UILabel.AutoresizingMask.flexibleBottomMargin]
         totalPriceLabel.autoresizingMask = [UILabel.AutoresizingMask.flexibleLeftMargin, UILabel.AutoresizingMask.flexibleRightMargin, UILabel.AutoresizingMask.flexibleTopMargin, UILabel.AutoresizingMask.flexibleBottomMargin]
+    }
+    
+    func setupPayButton() {
+        payButton.frame = CGRect(x: (totalView.frame.size.width - 300)/2, y: totalLabel.frame.maxY + 20, width: 300, height: 50)
+        payButton.addTarget(self, action: #selector(payButtonPressed), for: .touchUpInside)
+        
+        totalView.addSubview(payButton)
     }
 }

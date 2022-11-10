@@ -27,7 +27,7 @@ extension ShoppingCart {
         return Observable.create { observer -> Disposable in
             
             guard self.pizzas.value.count > 0 else {
-                observer.onError(NSError(domain: "", code: -1, userInfo: nil))
+                observer.onNext([])
                 return Disposables.create { }
             }
             
