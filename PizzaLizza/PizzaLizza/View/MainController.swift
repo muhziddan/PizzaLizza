@@ -40,12 +40,6 @@ class MainController: UIViewController {
         setupCellConfiguration()
         setupCellTapHandling()
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//
-//        tableView.frame = view.bounds
-//    }
 }
 
 //MARK: - RxSetup
