@@ -74,8 +74,8 @@ extension CartController: UITableViewDelegate, UITableViewDataSource {
         let totalPerItem = totalItems[indexPath.row]
         totalPriceLabel.text = CurrencyFormatter.rupiahFormatter.string(from: totalCost)
         
-        cell.configure(mainText: "\(totalPerItem.countryName) pizza (\(totalPerItem.picked!))",
-                       secondaryText: CurrencyFormatter.rupiahFormatter.string(from: totalPerItem.picked! * totalPerItem.intPrice) ?? "IDR 0")
+        cell.cartConfigure(mainText: totalPerItem.countryName,
+                           secondaryText: CurrencyFormatter.rupiahFormatter.string(from: totalPerItem.picked! * totalPerItem.intPrice) ?? "IDR 0", count: totalPerItem.picked!)
         
         return cell
     }

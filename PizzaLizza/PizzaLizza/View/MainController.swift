@@ -12,37 +12,31 @@ import RxCocoa
 class MainController: UIViewController {
     
     private let tableView: UITableView = {
-        let tv = UITableView()
+        var tv = UITableView()
         tv.register(ItemCell.self, forCellReuseIdentifier: ItemCell.identifier)
+        tv.rowHeight = 70
         
         return tv
     }()
     
     var pizzaService = PizzaService()
-    var pizzaData: [Pizza]?
-    var shoppingCart = ShoppingCart.sharedCart
+    var pizzaData: Observable<[Pizza]> = Observable.just([])
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        tableView.delegate = self
-        tableView.dataSource = self
         view.addSubview(tableView)
         
         navigationItem.title = "Pizza Lizza"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "\(shoppingCart.pizzas.value.count) 🍕", style: .plain, target: self, action: #selector(segueHandler))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "\(ShoppingCart.sharedCart.pizzas.value.count) 🍕", style: .plain, target: self, action: #selector(segueHandler))
         
-        pizzaData = pizzaService.fetchPizzaData()
+        pizzaData = Observable.just(pizzaService.fetchPizzaData() ?? [])
         tableView.reloadData()
         updateCartButton()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        updateCartButton()
+        setupCellConfiguration()
+        setupCellTapHandling()
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,10 +46,9 @@ class MainController: UIViewController {
     }
 }
 
-//MARK: - Cart update and Segue
+//MARK: - RxSetup
 private extension MainController {
     func updateCartButton() {
-//        navigationItem.rightBarButtonItem?.title = "\(shoppingCart.pizzas.value.count) 🍕"
         ShoppingCart.sharedCart.pizzas.asObservable()
             .subscribe(onNext: {[unowned self] pizzas in
                 navigationItem.rightBarButtonItem?.title = "\(pizzas.count) 🍕"
@@ -63,43 +56,39 @@ private extension MainController {
             .disposed(by: disposeBag)
     }
     
+    func setupCellConfiguration() {
+        pizzaData
+            .bind(to: tableView
+                .rx
+                .items(cellIdentifier: ItemCell.identifier,
+                       cellType: ItemCell.self)) { row, pizza, cell in
+                guard let price = CurrencyFormatter.rupiahFormatter.string(from: pizza.intPrice) else {return}
+                cell.mainConfigure(mainText: pizza.countryName,
+                               secondaryText: price)
+            }
+                       .disposed(by: disposeBag)
+    }
+    
+    func setupCellTapHandling() {
+        tableView
+            .rx
+            .modelSelected(Pizza.self)
+            .subscribe(onNext: { [unowned self] pizza in
+                let newValue = ShoppingCart.sharedCart.pizzas.value + [pizza]
+                ShoppingCart.sharedCart.pizzas.accept(newValue)
+                
+                if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
+                    self.tableView.deselectRow(at: selectedRowIndexPath, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+//MARK: - Segue handler
+private extension MainController {
     @objc private func segueHandler() {
         let destinationVC = CartController()
         navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
-
-//MARK: - Table view data source and delegate
-extension MainController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pizzaData?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.identifier, for: indexPath) as! ItemCell
-        
-        guard let currentPizza = pizzaData?[indexPath.row],
-        let price = CurrencyFormatter.rupiahFormatter.string(from: currentPizza.intPrice) else {return cell}
-        
-        cell.configure(mainText: "\(currentPizza.countryName) pizza",
-                       secondaryText: price)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        guard let selectedPizza = pizzaData?[indexPath.row] else {return}
-        
-        let newValue = shoppingCart.pizzas.value + [selectedPizza]
-        ShoppingCart.sharedCart.pizzas.accept(newValue)
-//        shoppingCart.pizzas.append(selectedPizza)
-//        updateCartButton()
-    }
-}
-

@@ -35,8 +35,13 @@ class ItemCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(mainText: String, secondaryText: String) {
-        mainLabel.text = mainText
+    public func mainConfigure(mainText: String, secondaryText: String) {
+        mainLabel.text = "\(mainText) pizza"
+        secondaryLabel.text = secondaryText
+    }
+    
+    public func cartConfigure(mainText: String, secondaryText: String, count: Int) {
+        mainLabel.text = "\(mainText) pizza (\(count))"
         secondaryLabel.text = secondaryText
     }
     
