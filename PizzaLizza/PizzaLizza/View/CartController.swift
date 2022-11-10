@@ -40,9 +40,10 @@ class CartController: UIViewController {
         return label
     }()
     
-    let totalItems = Observable.just(ShoppingCart.sharedCart.totalItems)
-    let totalCost = ShoppingCart.sharedCart.totalCost
+    private var totalItems: Observable<[ShoppingCartModel]> = Observable.just([])
+    private let totalCost = ShoppingCart.sharedCart.totalCost
     private let disposeBag = DisposeBag()
+    private var viewModel = ShoppingCartViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,9 @@ class CartController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Cart"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "reset", style: .plain, target: self, action: #selector(resetCart))
+        
+        // setup vm
+        totalItems = viewModel.fetchCartModel()
         
         // setup view
         setupTableView()
@@ -70,11 +74,8 @@ private extension CartController {
                 .items(cellIdentifier: ItemCell.identifier,
                        cellType: ItemCell.self)) { row, pizza, cell in
                 
-                let totalPerItem = pizza.picked! * pizza.intPrice
-                guard let price = CurrencyFormatter.rupiahFormatter.string(from: totalPerItem) else {return}
-                
-                cell.cartConfigure(mainText: pizza.countryName,
-                                   secondaryText: price, count: pizza.picked!)
+                cell.cartConfigure(mainText: pizza.displayItemText,
+                                   secondaryText: pizza.displayPriceText, count: pizza.picked)
             }
                        .disposed(by: disposeBag)
     }
@@ -82,7 +83,7 @@ private extension CartController {
     func setupCellTapHandling() {
         tableView
             .rx
-            .modelSelected(Pizza.self)
+            .modelSelected(MainModel.self)
             .subscribe(onNext: { [unowned self] pizza in
                 if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
                     self.tableView.deselectRow(at: selectedRowIndexPath, animated: true)

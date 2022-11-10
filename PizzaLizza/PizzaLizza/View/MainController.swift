@@ -19,9 +19,9 @@ class MainController: UIViewController {
         return tv
     }()
     
-    var pizzaService = PizzaService()
-    var pizzaData: Observable<[Pizza]> = Observable.just([])
     private let disposeBag = DisposeBag()
+    private var viewModel = MainViewModel()
+    private var pizzaData: Observable<[MainModel]> = Observable.just([])
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,8 @@ class MainController: UIViewController {
         navigationItem.title = "Pizza Lizza"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "\(ShoppingCart.sharedCart.pizzas.value.count) 🍕", style: .plain, target: self, action: #selector(segueHandler))
         
-        pizzaData = pizzaService.fetchPizzaData()
+        // fetchData
+        pizzaData = viewModel.fetchPizzaModel()
         
         // setup view
         setupTableView()
@@ -58,9 +59,8 @@ private extension MainController {
                 .rx
                 .items(cellIdentifier: ItemCell.identifier,
                        cellType: ItemCell.self)) { row, pizza, cell in
-                guard let price = CurrencyFormatter.rupiahFormatter.string(from: pizza.intPrice) else {return}
-                cell.mainConfigure(mainText: pizza.countryName,
-                               secondaryText: price)
+                cell.mainConfigure(mainText: pizza.displayItemText,
+                                   secondaryText: pizza.displayPriceText)
             }
                        .disposed(by: disposeBag)
     }
@@ -68,7 +68,7 @@ private extension MainController {
     func setupCellTapHandling() {
         tableView
             .rx
-            .modelSelected(Pizza.self)
+            .modelSelected(MainModel.self)
             .subscribe(onNext: { [unowned self] pizza in
                 let newValue = ShoppingCart.sharedCart.pizzas.value + [pizza]
                 ShoppingCart.sharedCart.pizzas.accept(newValue)

@@ -12,7 +12,7 @@ import RxCocoa
 class ShoppingCart {
     static let sharedCart = ShoppingCart()
     
-    let pizzas: BehaviorRelay<[Pizza]> = BehaviorRelay(value: [])
+    let pizzas: BehaviorRelay<[MainModel]> = BehaviorRelay(value: [])
 }
 
 extension ShoppingCart {
@@ -22,26 +22,33 @@ extension ShoppingCart {
         }
     }
     
-    var totalItems: [Pizza] {
+    var totalItems: Observable<[MainModel]> {
         
-        guard pizzas.value.count > 0 else {return []}
-        
-        let setOfPizzas = Set<Pizza>(pizzas.value)
-        
-        let items: [Pizza] = setOfPizzas.map { pizza in
-            let counter: Int = pizzas.value.reduce(0) { partialResult, reducePizza in
-                if pizza == reducePizza {
-                    return partialResult + 1
-                }
-                
-                return partialResult
+        return Observable.create { observer -> Disposable in
+            
+            guard self.pizzas.value.count > 0 else {
+                observer.onError(NSError(domain: "", code: -1, userInfo: nil))
+                return Disposables.create { }
             }
             
-            var newPizza = pizza
-            newPizza.picked = counter
-            return newPizza
+            let setOfPizzas = Set<MainModel>(self.pizzas.value)
+            
+            let items: [MainModel] = setOfPizzas.map { pizza in
+                let counter: Int = self.pizzas.value.reduce(0) { partialResult, reducePizza in
+                    if pizza == reducePizza {
+                        return partialResult + 1
+                    }
+                    
+                    return partialResult
+                }
+                
+                var newPizza = pizza
+                newPizza.picked = counter
+                return newPizza
+            }
+            observer.onNext(items)
+            
+            return Disposables.create { }
         }
-        
-        return items
     }
 }

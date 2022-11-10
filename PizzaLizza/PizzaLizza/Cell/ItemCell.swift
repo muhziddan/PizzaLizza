@@ -36,12 +36,12 @@ class ItemCell: UITableViewCell {
     }
     
     public func mainConfigure(mainText: String, secondaryText: String) {
-        mainLabel.text = "\(mainText) pizza"
+        mainLabel.text = mainText
         secondaryLabel.text = secondaryText
     }
     
     public func cartConfigure(mainText: String, secondaryText: String, count: Int) {
-        mainLabel.text = "\(mainText) pizza (\(count))"
+        mainLabel.text = "\(mainText) (\(count))"
         secondaryLabel.text = secondaryText
     }
     

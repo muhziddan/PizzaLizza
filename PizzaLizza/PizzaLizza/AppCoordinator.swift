@@ -30,7 +30,6 @@ class AppCoordinator {
         navVC.navigationBar.standardAppearance = navBarAppearances
         navVC.navigationBar.scrollEdgeAppearance = navBarAppearances
         
-//        window?.windowScene = windowScene
         window.rootViewController = navVC
         window.makeKeyAndVisible()
     }

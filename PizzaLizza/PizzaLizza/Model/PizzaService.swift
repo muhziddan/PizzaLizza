@@ -8,7 +8,11 @@
 import Foundation
 import RxSwift
 
-class PizzaService {
+protocol PizzaServiceProtocol {
+    func fetchPizzaData() -> Observable<[Pizza]>
+}
+
+class PizzaService: PizzaServiceProtocol {
     
     func fetchPizzaData() -> Observable<[Pizza]> {
         
