@@ -11,7 +11,7 @@ class MainController: UIViewController {
     
     private let tableView: UITableView = {
         let tv = UITableView()
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "MainCell")
+        tv.register(ItemCell.self, forCellReuseIdentifier: ItemCell.identifier)
         
         return tv
     }()
@@ -19,11 +19,10 @@ class MainController: UIViewController {
     var pizzaService = PizzaService()
     var pizzaData: [Pizza]?
     var shoppingCart = ShoppingCart.sharedCart
-//    var pickerCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         view.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
@@ -60,13 +59,19 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MainCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.identifier, for: indexPath) as! ItemCell
         
-        var content = cell.defaultContentConfiguration()
-        content.text = pizzaData?[indexPath.row].countryName
-        cell.contentConfiguration = content
+        guard let currentPizza = pizzaData?[indexPath.row],
+        let price = CurrencyFormatter.rupiahFormatter.string(from: currentPizza.intPrice) else {return cell}
+        
+        cell.configure(mainText: "\(currentPizza.countryName) pizza",
+                       secondaryText: price)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

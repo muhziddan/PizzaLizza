@@ -20,6 +20,7 @@
 		8F9BA8E0291BDEBC00A931C8 /* CartController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9BA8DF291BDEBC00A931C8 /* CartController.swift */; };
 		8FAE8702291C55BA00F802A1 /* ShoppingCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE8701291C55BA00F802A1 /* ShoppingCart.swift */; };
 		8FAE8704291CC60F00F802A1 /* CurrencyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE8703291CC60F00F802A1 /* CurrencyFormatter.swift */; };
+		8FAE8708291CD92800F802A1 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE8707291CD92800F802A1 /* ItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		8F9BA8DF291BDEBC00A931C8 /* CartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartController.swift; sourceTree = "<group>"; };
 		8FAE8701291C55BA00F802A1 /* ShoppingCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCart.swift; sourceTree = "<group>"; };
 		8FAE8703291CC60F00F802A1 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
+		8FAE8707291CD92800F802A1 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				8F20F019291BB1460049B0A4 /* AppCoordinator.swift */,
 				8F20F01B291BC97E0049B0A4 /* Model */,
 				8F9BA8E1291BDEDB00A931C8 /* View */,
+				8FAE8706291CD8EA00F802A1 /* Cell */,
 				8FAE8705291CC61400F802A1 /* Helper */,
 				8F20F00B291B92AC0049B0A4 /* Main.storyboard */,
 				8F20F00E291B92AD0049B0A4 /* Assets.xcassets */,
@@ -110,6 +113,14 @@
 				8FAE8703291CC60F00F802A1 /* CurrencyFormatter.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		8FAE8706291CD8EA00F802A1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8FAE8707291CD92800F802A1 /* ItemCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,6 +199,7 @@
 				8F20F00A291B92AC0049B0A4 /* MainController.swift in Sources */,
 				8F9BA8E0291BDEBC00A931C8 /* CartController.swift in Sources */,
 				8F20F006291B92AC0049B0A4 /* AppDelegate.swift in Sources */,
+				8FAE8708291CD92800F802A1 /* ItemCell.swift in Sources */,
 				8F20F01F291BCB240049B0A4 /* Pizza.swift in Sources */,
 				8F20F021291BCBDD0049B0A4 /* PizzaService.swift in Sources */,
 				8F20F008291B92AC0049B0A4 /* SceneDelegate.swift in Sources */,

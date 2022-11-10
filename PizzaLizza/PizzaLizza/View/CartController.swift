@@ -11,13 +11,31 @@ class CartController: UIViewController {
     
     private let tableView: UITableView = {
         let tv = UITableView()
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "SecondCell")
+        tv.register(ItemCell.self, forCellReuseIdentifier: ItemCell.identifier)
         
         return tv
     }()
-    private let totalView = UIView()
-    private let totalLabel = UILabel()
-    private let totalPriceLabel = UILabel()
+    private let totalView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "MainRed")
+        
+        return view
+    }()
+    private let totalLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.textColor = .white
+        
+        return label
+    }()
+    private let totalPriceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.textColor = .white
+        label.textAlignment = .right
+        
+        return label
+    }()
     
     let totalItems = ShoppingCart.sharedCart.totalItems
     let totalCost = ShoppingCart.sharedCart.totalCost
@@ -42,13 +60,23 @@ extension CartController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SecondCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.identifier, for: indexPath) as! ItemCell
         
-        var content = cell.defaultContentConfiguration()
-        content.text = "\(totalItems[indexPath.row].countryName) - \(totalItems[indexPath.row].picked!)"
-        cell.contentConfiguration = content
+        let totalPerItem = totalItems[indexPath.row]
+        totalPriceLabel.text = CurrencyFormatter.rupiahFormatter.string(from: totalCost)
+        
+        cell.configure(mainText: "\(totalPerItem.countryName) pizza (\(totalPerItem.picked!))",
+                       secondaryText: CurrencyFormatter.rupiahFormatter.string(from: totalPerItem.picked! * totalPerItem.intPrice) ?? "IDR 0")
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -68,7 +96,7 @@ private extension CartController {
     func setupTotalView() {
         // base view
         totalView.frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY, width: view.bounds.width, height: -110)
-        totalView.backgroundColor = UIColor(named: "MainRed")
+        
         view.addSubview(totalView)
         
         totalView.translatesAutoresizingMaskIntoConstraints = true
@@ -77,11 +105,7 @@ private extension CartController {
         // labels
         totalLabel.frame = CGRect(x: totalView.bounds.minX + CGFloat(15), y: totalView.bounds.minY + CGFloat(20), width: 80, height: 25)
         totalPriceLabel.frame = CGRect(x: totalView.bounds.maxX - CGFloat(15), y: totalView.bounds.minY + CGFloat(20), width: -200, height: 25)
-        totalLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        totalLabel.textColor = .white
-        totalPriceLabel.font = UIFont.boldSystemFont(ofSize: 25)
-        totalPriceLabel.textColor = .white
-        totalPriceLabel.textAlignment = .right
+        
         totalLabel.text = "Total:"
         totalPriceLabel.text = CurrencyFormatter.rupiahFormatter.string(from: totalCost)
         
