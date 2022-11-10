@@ -6,17 +6,32 @@
 //
 
 import Foundation
+import RxSwift
 
 class PizzaService {
     
-    func fetchPizzaData() -> [Pizza]? {
-        guard let bundlePath = Bundle.main.url(forResource: "Data", withExtension: "json") else {return nil}
+    func fetchPizzaData() -> Observable<[Pizza]> {
         
-        guard let jsonData = try? Data(contentsOf: bundlePath) else {return nil}
-        
-        guard let parsedData = parseJSON(with: jsonData) else {return nil}
-        
-        return parsedData
+        return Observable.create { observer -> Disposable in
+            
+            guard let bundlePath = Bundle.main.url(forResource: "Data", withExtension: "json") else {
+                observer.onError(NSError(domain: "", code: -1, userInfo: nil))
+                return Disposables.create { }
+            }
+            
+            do {
+                let jsonData = try Data(contentsOf: bundlePath, options: .mappedIfSafe)
+                guard let parsedData = self.parseJSON(with: jsonData) else {
+                    observer.onError(NSError(domain: "", code: -1, userInfo: nil))
+                    return Disposables.create { }
+                }
+                observer.onNext(parsedData)
+            } catch {
+                observer.onError(error)
+            }
+            
+            return Disposables.create { }
+        }
     }
     
     func parseJSON(with pizzaData: Data) -> [Pizza]? {

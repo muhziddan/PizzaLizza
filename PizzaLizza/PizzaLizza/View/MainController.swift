@@ -30,7 +30,7 @@ class MainController: UIViewController {
         navigationItem.title = "Pizza Lizza"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "\(ShoppingCart.sharedCart.pizzas.value.count) 🍕", style: .plain, target: self, action: #selector(segueHandler))
         
-        pizzaData = Observable.just(pizzaService.fetchPizzaData() ?? [])
+        pizzaData = pizzaService.fetchPizzaData()
         
         // setup view
         setupTableView()
