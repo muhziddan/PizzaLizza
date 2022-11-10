@@ -27,23 +27,25 @@ class MainController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        view.addSubview(tableView)
-        
         navigationItem.title = "Pizza Lizza"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "\(ShoppingCart.sharedCart.pizzas.value.count) 🍕", style: .plain, target: self, action: #selector(segueHandler))
         
         pizzaData = Observable.just(pizzaService.fetchPizzaData() ?? [])
-        tableView.reloadData()
+        
+        // setup view
+        setupTableView()
+        
+        // rx setup call
         updateCartButton()
         setupCellConfiguration()
         setupCellTapHandling()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        tableView.frame = view.bounds
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//        tableView.frame = view.bounds
+//    }
 }
 
 //MARK: - RxSetup
@@ -90,5 +92,16 @@ private extension MainController {
     @objc private func segueHandler() {
         let destinationVC = CartController()
         navigationController?.pushViewController(destinationVC, animated: true)
+    }
+}
+
+//MARK: - View setup
+private extension MainController {
+    func setupTableView() {
+        tableView.frame = view.bounds
+        view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = true
+        tableView.autoresizingMask = [UITableView.AutoresizingMask.flexibleLeftMargin, UITableView.AutoresizingMask.flexibleRightMargin, UITableView.AutoresizingMask.flexibleTopMargin, UITableView.AutoresizingMask.flexibleBottomMargin]
     }
 }

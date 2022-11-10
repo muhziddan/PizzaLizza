@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class CartController: UIViewController {
     
     private let tableView: UITableView = {
         let tv = UITableView()
         tv.register(ItemCell.self, forCellReuseIdentifier: ItemCell.identifier)
+        tv.rowHeight = 70
         
         return tv
     }()
@@ -37,8 +40,9 @@ class CartController: UIViewController {
         return label
     }()
     
-    let totalItems = ShoppingCart.sharedCart.totalItems
+    let totalItems = Observable.just(ShoppingCart.sharedCart.totalItems)
     let totalCost = ShoppingCart.sharedCart.totalCost
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,10 +51,44 @@ class CartController: UIViewController {
         navigationItem.title = "Cart"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "reset", style: .plain, target: self, action: #selector(resetCart))
         
+        // setup view
         setupTableView()
         setupTotalView()
         
-        tableView.reloadData()
+        // setup rx
+        setupCellConfiguration()
+        setupCellTapHandling()
+    }
+}
+
+//MARK: - ReactiveX setup
+private extension CartController {
+    func setupCellConfiguration() {
+        totalItems
+            .bind(to: tableView
+                .rx
+                .items(cellIdentifier: ItemCell.identifier,
+                       cellType: ItemCell.self)) { row, pizza, cell in
+                
+                let totalPerItem = pizza.picked! * pizza.intPrice
+                guard let price = CurrencyFormatter.rupiahFormatter.string(from: totalPerItem) else {return}
+                
+                cell.cartConfigure(mainText: pizza.countryName,
+                                   secondaryText: price, count: pizza.picked!)
+            }
+                       .disposed(by: disposeBag)
+    }
+    
+    func setupCellTapHandling() {
+        tableView
+            .rx
+            .modelSelected(Pizza.self)
+            .subscribe(onNext: { [unowned self] pizza in
+                if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
+                    self.tableView.deselectRow(at: selectedRowIndexPath, animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -62,38 +100,9 @@ private extension CartController {
     }
 }
 
-//MARK: - setup table view
-extension CartController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return totalItems.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ItemCell.identifier, for: indexPath) as! ItemCell
-        
-        let totalPerItem = totalItems[indexPath.row]
-        totalPriceLabel.text = CurrencyFormatter.rupiahFormatter.string(from: totalCost)
-        
-        cell.cartConfigure(mainText: totalPerItem.countryName,
-                           secondaryText: CurrencyFormatter.rupiahFormatter.string(from: totalPerItem.picked! * totalPerItem.intPrice) ?? "IDR 0", count: totalPerItem.picked!)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
 //MARK: - setup views
 private extension CartController {
     func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
         
         tableView.frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: (view.bounds.height - CGFloat(110)))
         view.addSubview(tableView)
