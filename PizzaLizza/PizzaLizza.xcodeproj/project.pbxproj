@@ -43,6 +43,7 @@
 		8F20F01C291BC9AA0049B0A4 /* Data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
 		8F20F01E291BCB230049B0A4 /* Pizza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pizza.swift; sourceTree = "<group>"; };
 		8F20F020291BCBDD0049B0A4 /* PizzaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaService.swift; sourceTree = "<group>"; };
+		8F35B7A5291D69AE00FD7B55 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		8F9BA8DF291BDEBC00A931C8 /* CartController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartController.swift; sourceTree = "<group>"; };
 		8FAE8701291C55BA00F802A1 /* ShoppingCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCart.swift; sourceTree = "<group>"; };
 		8FAE8703291CC60F00F802A1 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		8F20EFF9291B92AC0049B0A4 = {
 			isa = PBXGroup;
 			children = (
+				8F35B7A5291D69AE00FD7B55 /* README.md */,
 				8F20F004291B92AC0049B0A4 /* PizzaLizza */,
 				8F20F003291B92AC0049B0A4 /* Products */,
 				533AFD5A86D924A676A21535 /* Pods */,
