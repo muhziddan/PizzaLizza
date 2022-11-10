@@ -42,6 +42,7 @@ class MainController: UIViewController {
     }
 }
 
+//MARK: - Cart update and Segue
 private extension MainController {
     func updateCartButton() {
         navigationItem.rightBarButtonItem?.title = "\(shoppingCart.pizzas.count) 🍕"
@@ -53,6 +54,7 @@ private extension MainController {
     }
 }
 
+//MARK: - Table view data source and delegate
 extension MainController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pizzaData?.count ?? 0
