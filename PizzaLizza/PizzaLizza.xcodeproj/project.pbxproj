@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		062AE2BCE1FEC4BBCE4FC098 /* Pods_PizzaLizza.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A85C23DF7EAD213DDB4EA2A1 /* Pods_PizzaLizza.framework */; };
 		8F20F006291B92AC0049B0A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20F005291B92AC0049B0A4 /* AppDelegate.swift */; };
 		8F20F008291B92AC0049B0A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20F007291B92AC0049B0A4 /* SceneDelegate.swift */; };
 		8F20F00A291B92AC0049B0A4 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F20F009291B92AC0049B0A4 /* MainController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0798A1D8FE2465C8487365C4 /* Pods-PizzaLizza.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PizzaLizza.release.xcconfig"; path = "Target Support Files/Pods-PizzaLizza/Pods-PizzaLizza.release.xcconfig"; sourceTree = "<group>"; };
 		8F20F002291B92AC0049B0A4 /* PizzaLizza.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PizzaLizza.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F20F005291B92AC0049B0A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F20F007291B92AC0049B0A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +42,8 @@
 		8FAE8701291C55BA00F802A1 /* ShoppingCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCart.swift; sourceTree = "<group>"; };
 		8FAE8703291CC60F00F802A1 /* CurrencyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFormatter.swift; sourceTree = "<group>"; };
 		8FAE8707291CD92800F802A1 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		A85C23DF7EAD213DDB4EA2A1 /* Pods_PizzaLizza.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PizzaLizza.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1AB68EB5E6829061FF18FD9 /* Pods-PizzaLizza.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PizzaLizza.debug.xcconfig"; path = "Target Support Files/Pods-PizzaLizza/Pods-PizzaLizza.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,17 +51,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				062AE2BCE1FEC4BBCE4FC098 /* Pods_PizzaLizza.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		533AFD5A86D924A676A21535 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C1AB68EB5E6829061FF18FD9 /* Pods-PizzaLizza.debug.xcconfig */,
+				0798A1D8FE2465C8487365C4 /* Pods-PizzaLizza.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		8F20EFF9291B92AC0049B0A4 = {
 			isa = PBXGroup;
 			children = (
 				8F20F004291B92AC0049B0A4 /* PizzaLizza */,
 				8F20F003291B92AC0049B0A4 /* Products */,
+				533AFD5A86D924A676A21535 /* Pods */,
+				F92FF7114486D6E54EF42577 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +140,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		F92FF7114486D6E54EF42577 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A85C23DF7EAD213DDB4EA2A1 /* Pods_PizzaLizza.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -130,9 +155,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F20F016291B92AD0049B0A4 /* Build configuration list for PBXNativeTarget "PizzaLizza" */;
 			buildPhases = (
+				D9387876352DA35E300A7AA3 /* [CP] Check Pods Manifest.lock */,
 				8F20EFFE291B92AC0049B0A4 /* Sources */,
 				8F20EFFF291B92AC0049B0A4 /* Frameworks */,
 				8F20F000291B92AC0049B0A4 /* Resources */,
+				404DAF0D7E077C164CC0D8C1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -189,6 +216,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		404DAF0D7E077C164CC0D8C1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PizzaLizza/Pods-PizzaLizza-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PizzaLizza/Pods-PizzaLizza-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PizzaLizza/Pods-PizzaLizza-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9387876352DA35E300A7AA3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PizzaLizza-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8F20EFFE291B92AC0049B0A4 /* Sources */ = {
@@ -346,6 +415,7 @@
 		};
 		8F20F017291B92AD0049B0A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1AB68EB5E6829061FF18FD9 /* Pods-PizzaLizza.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -374,6 +444,7 @@
 		};
 		8F20F018291B92AD0049B0A4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0798A1D8FE2465C8487365C4 /* Pods-PizzaLizza.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
