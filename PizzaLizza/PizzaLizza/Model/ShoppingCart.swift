@@ -6,28 +6,30 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 class ShoppingCart {
     static let sharedCart = ShoppingCart()
     
-    var pizzas: [Pizza] = []
+    let pizzas: BehaviorRelay<[Pizza]> = BehaviorRelay(value: [])
 }
 
 extension ShoppingCart {
     var totalCost: Int {
-        return pizzas.reduce(0) { partialResult, pizza in
+        return pizzas.value.reduce(0) { partialResult, pizza in
             partialResult + pizza.intPrice
         }
     }
     
     var totalItems: [Pizza] {
         
-        guard pizzas.count > 0 else {return []}
+        guard pizzas.value.count > 0 else {return []}
         
-        let setOfPizzas = Set<Pizza>(pizzas)
+        let setOfPizzas = Set<Pizza>(pizzas.value)
         
         let items: [Pizza] = setOfPizzas.map { pizza in
-            let counter: Int = pizzas.reduce(0) { partialResult, reducePizza in
+            let counter: Int = pizzas.value.reduce(0) { partialResult, reducePizza in
                 if pizza == reducePizza {
                     return partialResult + 1
                 }

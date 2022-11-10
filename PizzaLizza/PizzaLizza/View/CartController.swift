@@ -57,7 +57,7 @@ class CartController: UIViewController {
 //MARK: - Reset Cart
 private extension CartController {
     @objc private func resetCart() {
-        ShoppingCart.sharedCart.pizzas = []
+        ShoppingCart.sharedCart.pizzas.accept([])
         navigationController?.popViewController(animated: true)
     }
 }

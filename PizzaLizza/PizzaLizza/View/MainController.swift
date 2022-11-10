@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MainController: UIViewController {
     
@@ -19,6 +21,7 @@ class MainController: UIViewController {
     var pizzaService = PizzaService()
     var pizzaData: [Pizza]?
     var shoppingCart = ShoppingCart.sharedCart
+    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +32,17 @@ class MainController: UIViewController {
         view.addSubview(tableView)
         
         navigationItem.title = "Pizza Lizza"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "\(shoppingCart.pizzas.count) 🍕", style: .plain, target: self, action: #selector(segueHandler))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "\(shoppingCart.pizzas.value.count) 🍕", style: .plain, target: self, action: #selector(segueHandler))
         
         pizzaData = pizzaService.fetchPizzaData()
         tableView.reloadData()
+        updateCartButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateCartButton()
+//        updateCartButton()
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,7 +55,12 @@ class MainController: UIViewController {
 //MARK: - Cart update and Segue
 private extension MainController {
     func updateCartButton() {
-        navigationItem.rightBarButtonItem?.title = "\(shoppingCart.pizzas.count) 🍕"
+//        navigationItem.rightBarButtonItem?.title = "\(shoppingCart.pizzas.value.count) 🍕"
+        ShoppingCart.sharedCart.pizzas.asObservable()
+            .subscribe(onNext: {[unowned self] pizzas in
+                navigationItem.rightBarButtonItem?.title = "\(pizzas.count) 🍕"
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc private func segueHandler() {
@@ -86,8 +95,11 @@ extension MainController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard let selectedPizza = pizzaData?[indexPath.row] else {return}
-        shoppingCart.pizzas.append(selectedPizza)
-        updateCartButton()
+        
+        let newValue = shoppingCart.pizzas.value + [selectedPizza]
+        ShoppingCart.sharedCart.pizzas.accept(newValue)
+//        shoppingCart.pizzas.append(selectedPizza)
+//        updateCartButton()
     }
 }
 
