@@ -105,7 +105,7 @@ private extension CartController {
     func setupCellTapHandling() {
         tableView
             .rx
-            .modelSelected(MainModel.self)
+            .modelSelected(ShoppingCartModel.self)
             .subscribe(onNext: { [unowned self] pizza in
                 if let selectedRowIndexPath = self.tableView.indexPathForSelectedRow {
                     self.tableView.deselectRow(at: selectedRowIndexPath, animated: true)
